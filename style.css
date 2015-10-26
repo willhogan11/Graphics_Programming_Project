@@ -1,5 +1,17 @@
+/* Style for the Canvas */
 canvas {
     border: solid blue 1px;
     margin: auto;
     display: block;
+}
+
+
+/* Style for the Index Page */
+.menu{
+	margin: auto;
+	text-align: center;
+	width: 40%;
+	border: solid blue 5px;
+	padding 30px;
+	font-family: monospace;
 }
