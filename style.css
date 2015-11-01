@@ -3,6 +3,7 @@ canvas {
     border: solid blue 1px;
     margin: auto;
     display: block;
+	background-color: black;
 }
 
 
@@ -10,8 +11,31 @@ canvas {
 .menu{
 	margin: auto;
 	text-align: center;
-	width: 40%;
+	width: 60%;
 	border: solid blue 5px;
-	padding 30px;
 	font-family: monospace;
+	background-color: white;
+	box-shadow: 10px 10px 10px black;
+}
+
+.asteroidText{
+	color: red;
+	font-size: 350%;
+	font-family: monospace;
+	text-shadow: 1px 1px 1px #000, 
+				 3px 3px 5px black;
+}
+
+.dodgeText{
+	color: cornflowerblue;
+	font-size: 350%;
+	font-style: italic;
+	text-shadow: 1px 1px 1px #000, 
+		3px 3px 5px cornflowerblue;
+}
+
+button{
+	font-family: monospace;
+	font-size: 150%;
+	padding: 10px;
 }
