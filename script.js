@@ -5,15 +5,19 @@ canvas.width = 1200;
 canvas.height = 600;
 var W = canvas.width;
 var H = canvas.height;
-var maxAsteroids = 50; //max asteroids
+var maxAsteroids = 20; //max asteroids
 var asteroids = [];
+var hitCount = 0;
 
 
 function initialise(){
 	fillAsteroidArray(asteroids, maxAsteroids);
 	drawAsteroid();
-	collisionDetection();
+	// spaceShip.drawSpaceShip();
+	// collisions(asteroids);
+	// RectasteroidColliding(asteroids[], spaceShip);
 }
+
 
 
 // Create Spaceship Object
@@ -34,21 +38,20 @@ var spaceShip = {
 		ctx.beginPath();
 		ctx.fillStyle = "lightblue";
 		ctx.fillRect(this.position.x, this.position.y, this.size.width, this.size.height);
-		ctx.fillRect(this.position.x + 15, this.position.y, this.size.width - 30, this.size.height / 2 - 12);
-		ctx.fillRect(this.position.x + 22.5, this.position.y, this.size.width - 45, this.size.height / 2 - 15);
+		// ctx.fillRect(this.position.x + 15, this.position.y, this.size.width - 30, this.size.height / 2 - 12);
+		// ctx.fillRect(this.position.x + 22.5, this.position.y, this.size.width - 45, this.size.height / 2 - 15);
 
 	}// End drawShip function 
 }; // End spaceShip Object
 
 
 
-
 function fillAsteroidArray(asteroids, maxAsteroids){
 	for(var i = 0; i < maxAsteroids; i++){
 		asteroids.push({
-			x: Math.round(Math.random()*W), //x-coordinate
-			y: Math.round(Math.random()*H), //y-coordinate
-			r: Math.random()*25 + 2, //radius
+			x: Math.floor(Math.random()*W), //x-coordinate
+			y: Math.floor(Math.random()*H), //y-coordinate
+			r: 50, // Math.random()*25 + 2, //radius
 			d: Math.random() * maxAsteroids //density
 		});
 	}
@@ -84,7 +87,11 @@ function randColour(){
 
 
 
-var hitCount = 0;
+
+
+
+
+/*var hitCount = 0;
 var astCollisionCheck;
 
 // Work in Progress....
@@ -93,18 +100,14 @@ function collisionDetection(){
 	for(var i = 0; i < maxAsteroids; i++){
 		// astCollisionCheck = asteroids[i];
 
-		if(spaceShip.position.x < asteroids[i] || spaceShip.position.y < asteroids[i] ||
-		   spaceShip.position.x > asteroids[i] || spaceShip.position.y > asteroids[i]){
+		if(spaceShip.position.x == asteroids[i].x){
 			hitCount += 1;
 			console.log(hitCount);
 		}
 		else
 			console.log("No Collision Detection");
 	}
-}					 
-
-
-
+}	*/				 
 
 
 
@@ -113,7 +116,7 @@ function update()
 	for(var i = 0; i < maxAsteroids; i++)
 	{
 		var ast = asteroids[i];
-		ast.y += Math.floor((Math.random() * 2) + 1);
+		ast.y += Math.floor((Math.random() * 6) + 1);
 
 		if(ast.y > H)
 		{
@@ -129,7 +132,6 @@ function update()
 	}
 	spaceShip.drawSpaceShip();
 }
-// setInterval(draw, 10); //animation loop
 
 
 
@@ -157,4 +159,42 @@ window.addEventListener("keydown", function(event) {
 }); // End window.addEventListener
 
 
+
+
+function collisions(asteroids)
+{
+	for(var i = 0; i < maxAsteroids; i++)
+	{
+		var distX = Math.abs(asteroids[i].x - spaceShip.position.x - spaceShip.size.width / 2);
+		var distY = Math.abs(asteroids[i].y - spaceShip.position.y - spaceShip.size.height / 2);
+
+		if (distX > (spaceShip.size.width / 2 + asteroids[i].r)) {
+			return false;
+			//console.log("No Collision");
+		}
+		if (distY > (spaceShip.size.height / 2 + asteroids[i].r)) {
+			return false;
+			//console.log("No Collision");
+		}
+
+		if (distX <= (spaceShip.size.width / 2)) {
+			hitCount += 1;
+			console.log("Collison Count: " + hitCount);
+			return true;
+		}
+		if (distY <= (spaceShip.size.height / 2)) {
+			hitCount += 1;
+			console.log("Collison Count: " + hitCount);
+			return true;
+		}
+		var dx = distX -  spaceShip.size.width / 2;
+		var dy = distY - spaceShip.size.height / 2;
+
+		return (dx * dx + dy * dy <= (asteroids[i].r * asteroids[i].r));
+	}
+}
+
+
+
 initialise(); // Start Everything 
+
