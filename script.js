@@ -5,11 +5,11 @@ canvas.width = 1200;
 canvas.height = 600;
 var W = canvas.width;
 var H = canvas.height;
-var maxAsteroids = 20; //max asteroids
+var maxAsteroids = 2; //max asteroids
 var asteroids = [];
 var hitCount = 0;
-var lives = 3;
-var dead = false;
+var asteroidsDodged = 0;
+var alive = true;
 var gameOver = false;
 
 
@@ -27,6 +27,7 @@ var spaceShip = {
 	y: canvas.height - 20, 
 	width: 50, 
 	height: 12, 
+	colour: "lightblue",
 	Velocity: {
 		x: 20
 	}, 
@@ -36,8 +37,8 @@ var spaceShip = {
 		ctx.beginPath();
 		ctx.fillStyle = "lightblue";
 		ctx.fillRect(this.x, this.y, this.width, this.height);
-		// ctx.fillRect(this.position.x + 15, this.position.y, this.size.width - 30, this.size.height / 2 - 12);
-		// ctx.fillRect(this.position.x + 22.5, this.position.y, this.size.width - 45, this.size.height / 2 - 15);
+		ctx.fillRect(this.x + 15, this.y, this.width - 30, this.height / 2 - 12);
+		ctx.fillRect(this.x + 22.5, this.y, this.width - 45, this.height / 2 - 15);
 
 	}// End drawShip function 
 }; // End spaceShip Object
@@ -49,7 +50,7 @@ function fillAsteroidArray(asteroids, maxAsteroids){
 		asteroids.push({
 			x: Math.floor(Math.random()*W), //x-coordinate
 			y: Math.floor(Math.random()*H), //y-coordinate
-			r: 2, // Math.random()*25 + 2, //radius
+			r: 10, // Math.random()*25 + 2, //radius
 			d: Math.random() * maxAsteroids //density
 		});
 	}
@@ -71,7 +72,17 @@ function drawAsteroid()
 	}
 	ctx.fill();
 	update();
-	window.requestAnimationFrame(drawAsteroid);
+	
+	if(alive == true)
+	{
+		window.requestAnimationFrame(drawAsteroid);
+	}
+	else
+	{
+		window.requestAnimationFrame(drawAsteroid);
+		window.location.href = "index.html";
+		// document.getElementById("index.html");
+	}
 }
 
 
@@ -87,7 +98,7 @@ function randColour(){
 function timeOutFunction() {
 	dead = true;
 	lives -= 1;
-	ctx.fillStyle = "red";
+	spaceShip.colour = randColour();
 	dead = false;
 	console.log("Timeout Worked");
 	spaceShip.active = true;
@@ -96,7 +107,8 @@ function timeOutFunction() {
 
 function gameOverFunction(){
 	alert("GAME OVER!");
-	initialise();
+	alert("Start new Game");
+	// initialise();
 }
 
 
@@ -104,38 +116,53 @@ function gameOverFunction(){
 function update()
 {
 	if(collisions(asteroids, spaceShip) ) 
-	{
-/*		hitCount += 1;
-		console.log(hitCount);*/
-		spaceShip.active = false;
-		while(spaceShip.active == false){	
-			setTimeout(timeOutFunction(), 2000);
-		}
-		console.log("Lives : " + lives);
-
-		if(lives == 0)
+	{	
+		
+		alive = false;
+		alert("GAME OVER!");
+		alert("Start new Game");
+		
+		// gameOverFunction();
+		
+		/*while(spaceShip.active == false)
 		{
-			gameOver = true;
-			gameOverFunction();
-			window.cancelAnimationFrame(drawAsteroid);
-		}
-	}
-	for(var i = 0; i < maxAsteroids; i++)
-	{
-		var ast = asteroids[i];
-		ast.y += Math.floor((Math.random() * 6) + 1);
-
-		if(ast.y > H)
-		{
-			asteroids[i] = 
+			lives -= 1;
+			spaceShip.colour = randColour();
+			spaceShip.active = true;
+			
+			if(lives == 0)
 			{
-				x: Math.random()*W, y: -10,
-				r: ast.r, 
-				d: ast.d
-			};
+				gameOver = true;
+				gameOverFunction();
+				window.cancelAnimationFrame(drawAsteroid);
+			}
+			
 		}
+		
+		console.log("Lives left: " + lives);*/
+
+		
 	}
-	spaceShip.drawSpaceShip();
+
+	else
+	{
+		for(var i = 0; i < maxAsteroids; i++)
+		{
+			var ast = asteroids[i];		
+			ast.y += Math.floor((Math.random() * 6) + 1);
+
+			if(ast.y > H)
+			{
+				asteroids[i] = 
+				{
+					x: Math.random()*W, y: -10,
+					r: ast.r, 
+					d: ast.d
+				};
+			}
+		}
+		spaceShip.drawSpaceShip();
+	}
 }
 
 
@@ -164,9 +191,6 @@ window.addEventListener("keydown", function(event) {
 		spaceShip.drawSpaceShip();
 	}
 }); // End window.addEventListener
-
-
-
 
 
 
