@@ -1,6 +1,5 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-
 canvas.width = 1200;
 canvas.height = 500;
 var W = canvas.width;
@@ -9,6 +8,10 @@ var maxAsteroids = 25; //max asteroids
 var asteroids = [];
 var asteroidsDodged = 0;
 var alive = true;
+var easyLevel;
+var mediumLevel;
+var hardLevel;
+
 
 
 function initialise(){
@@ -59,8 +62,8 @@ function drawAsteroid()
 	ctx.clearRect(0, 0, W, H);
 
 	ctx.fillStyle = "ghostwhite";
-	ctx.shadowBlur = 50;
-	ctx.shadowColor = "red";
+	/*ctx.shadowBlur = 50;
+	ctx.shadowColor = "red";*/
 	ctx.beginPath();
 	for(var i = 0; i < maxAsteroids; i++)
 	{
@@ -115,8 +118,23 @@ function update()
 	for(var i = 0; i < maxAsteroids; i++)
 	{
 		var ast = asteroids[i];		
-		ast.y += Math.floor((Math.random() * 9) + 1);
 		
+		
+		ast.y += Math.floor((Math.random() * 1) + 0.5);
+		
+		if(asteroidsDodged > 20)
+			ast.y += Math.floor((Math.random() * 1.1) + 1);
+		if(asteroidsDodged > 100)
+			ast.y += Math.floor((Math.random() * 1.1) + 1);
+		if(asteroidsDodged > 200)
+			ast.y += Math.floor((Math.random() * 1.1) + 1);
+		if(asteroidsDodged > 300)
+			ast.y += Math.floor((Math.random() * 1.1) + 1);
+		if(asteroidsDodged > 400)
+			ast.y += Math.floor((Math.random() * 1.1) + 1);
+		
+		
+			
 		if(ast.y > H)
 		{
 			asteroidDodgeHTMLcount(asteroidsDodged += 1);
