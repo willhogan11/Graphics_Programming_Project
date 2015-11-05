@@ -14,6 +14,7 @@ var alive = true;
 function initialise(){
 	fillAsteroidArray(asteroids, maxAsteroids);
 	drawAsteroid();
+	// asteroidDodgeHTMLcount(asteroidsDodged);
 }
 
 
@@ -79,7 +80,7 @@ function drawAsteroid()
 				alive = false;
 			}
 		}
-		window.requestAnimationFrame(drawAsteroid);
+	    window.requestAnimationFrame(drawAsteroid);
 	}
 	else
 	{
@@ -113,11 +114,9 @@ function gameOverFunction(){
 }
 
 
-/*window.onload = function(){
-
-	var astCount = document.getElementById("asteroidsDodged");
-	alert(astCount.innerHTML);
-}*/
+function asteroidDodgeHTMLcount(asteroidsDodged){
+	document.getElementById("asteroidsDodged").innerHTML = asteroidsDodged;
+}
 
 
 function update()
@@ -125,12 +124,11 @@ function update()
 	for(var i = 0; i < maxAsteroids; i++)
 	{
 		var ast = asteroids[i];		
+		ast.y += Math.floor((Math.random() * 9) + 1);
 		
-		ast.y += Math.floor((Math.random() * 8) + 1);
-
 		if(ast.y > H)
 		{
-			astCount = asteroidsDodged += 1;
+			asteroidDodgeHTMLcount(asteroidsDodged += 1);
 			asteroids[i] = 
 			{
 				x: Math.random()*W, y: -10,
@@ -166,6 +164,7 @@ window.addEventListener("keydown", function(event) {
 		spaceShip.drawSpaceShip();
 	}
 }); // End window.addEventListener
+
 
 
 
