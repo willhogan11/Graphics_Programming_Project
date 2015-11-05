@@ -97,16 +97,6 @@ function randColour(){
 	return ('#0' + c.toString(16)).replace(/^#0([0-9a-f]{6})$/i, '#$1');
 }
 
-		 
-
-/*function timeOutFunction() {
-	dead = true;
-	lives -= 1;
-	spaceShip.colour = randColour();
-	dead = false;
-	console.log("Timeout Worked");
-	spaceShip.active = true;
-}*/
 
 
 function gameOverFunction(){
@@ -174,9 +164,6 @@ function collisions(asteroids, maxAsteroids)
 	for(var i = 0; i < maxAsteroids; i++)
 	{
 		var distX = Math.abs(asteroids[i].x - spaceShip.x - spaceShip.width / 2);
-		if(i==1){
-			console.log("1");
-		}
 		var distY = Math.abs(asteroids[i].y - spaceShip.y - spaceShip.height / 2);
 
 		if (distX > (spaceShip.width / 2 + asteroids[i].r)) {
@@ -200,3 +187,4 @@ function collisions(asteroids, maxAsteroids)
 
 initialise(); // Start Everything 
 
+// End of JavaScript file
