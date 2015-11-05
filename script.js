@@ -14,7 +14,6 @@ var alive = true;
 function initialise(){
 	fillAsteroidArray(asteroids, maxAsteroids);
 	drawAsteroid();
-	// asteroidDodgeHTMLcount(asteroidsDodged);
 }
 
 
@@ -25,14 +24,14 @@ var spaceShip = {
 	y: canvas.height - 20, 
 	width: 50, 
 	height: 12, 
-	colour: "blue",
 	Velocity: {
 		x: 20
 	}, 
 	active: true,
 	drawSpaceShip: function(){ // Draw Spaceship Object
 		ctx.beginPath();
-		ctx.fillStyle = "blue";
+		ctx.fillStyle = "greenyellow";
+		ctx.shadowColor = null;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.fillRect(this.x + 15, this.y, this.width - 30, this.height / 2 - 12);
 		ctx.fillRect(this.x + 22.5, this.y, this.width - 45, this.height / 2 - 15);
@@ -47,7 +46,7 @@ function fillAsteroidArray(asteroids, maxAsteroids){
 		asteroids.push({
 			x: Math.floor(Math.random()*W), //x-coordinate
 			y: Math.floor(Math.random()*H), //y-coordinate
-			r: Math.random()*25 + 2, //radius
+			r: Math.random()*25 + 4, //radius
 			d: Math.random() * maxAsteroids //density
 		});
 	}
@@ -59,7 +58,9 @@ function drawAsteroid()
 {
 	ctx.clearRect(0, 0, W, H);
 
-	ctx.fillStyle = "black";
+	ctx.fillStyle = "ghostwhite";
+	ctx.shadowBlur = 50;
+	ctx.shadowColor = "red";
 	ctx.beginPath();
 	for(var i = 0; i < maxAsteroids; i++)
 	{
