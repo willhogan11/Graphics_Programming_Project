@@ -6,8 +6,7 @@ canvas {
 	background-image: url(images/canvas_image.jpg);
 }
 
-
-/* Style for the Index Page */
+/* Style for the Index Page, Start menu */
 .menu{
 	margin: auto;
 	margin-top: 80px;
@@ -21,6 +20,7 @@ canvas {
 	padding: 0px;
 }
 
+/* 'Asteroid' style text from start page */
 .asteroidText{
 	color: red;
 	font-size: 500%;
@@ -29,6 +29,7 @@ canvas {
 				 3px 3px 5px black;
 }
 
+/* 'Dodge' style text for index page */
 .dodgeText{
 	color: cornflowerblue;
 	font-size: 500%;
@@ -37,7 +38,7 @@ canvas {
 		20px 1px 20px cornflowerblue;
 }
 
-
+/* Button style for index page */
 button{
 	font-family: sans-serif;
 	font-size: 120%;
@@ -45,6 +46,7 @@ button{
 	font-style: italic;
 }
 
+/* All parargraphs style */
 p{
 	font-family: cursive;
 	text-align: center;
